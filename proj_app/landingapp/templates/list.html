@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        {% load staticfiles %}
+
+        <link rel="stylesheet" type="text/css" href="{% static 'landingapp/style.css' %}" />
+        <meta charset="utf-8">
+        <title>Minimal Django File Upload</title>
+        <h1>CU&I Landing Page</h1>
+    </head>
+
+    <body>
+        <div>
+        <!-- List of uploaded documents -->
+        {% if documents %}
+            <ul>
+                {% for document in documents %}
+
+                    <li><input type="checkbox" name="{{ document.docfile.url }}" value="{{ document.docfile.url }}"><a href="{{ document.docfile.url }}">{{ document.docfile.name }}</a></li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No documents.</p>
+        {% endif %}
+
+        <!-- Upload form. Note enctype attribute! -->
+        <form action="{% url "list" %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <p>{{ form.non_field_errors }}</p>
+
+            <p>{{ form.docfile.label_tag }} {{ form.docfile.help_text }}</p>
+
+            <p>
+                {{ form.docfile.errors }}
+                {{ form.docfile }}
+            </p>
+
+            <p><input type="submit" value="Upload to Server" id="submitbutton" class="buttons"/></p>
+            <p><input type="button" value="Delete from Server" id="deletebutton" class="buttons"/></p><br />
+            <p><input type="button" value="Process" onclick="dataprocess()" id="processbutton" class="buttons"/></p><br /><br />
+
+            Output Filename: <input type="text" name="outputfilename"><br>
+
+
+        </form>
+        </div>
+    </body>
+
+</html>

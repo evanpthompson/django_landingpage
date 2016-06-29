@@ -1,0 +1,17 @@
+li a {
+    color: white;
+}
+
+h1 {
+    text-align: center;
+}
+
+body {
+    background: url("images/geometricbackground.jpg");
+    color: white;
+}
+
+.buttons {
+    float: left;
+}
+
